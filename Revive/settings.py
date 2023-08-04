@@ -43,9 +43,10 @@ INSTALLED_APPS = [
     'api',
     'Admin',
     'corsheaders',
-    'rest_framework_simplejwt'
+    'rest_framework_simplejwt',
+    'channels',
 ]
-
+ASGI_APPLICATION = 'Revive.routing.application'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -82,6 +83,7 @@ CORS_ORIGIN_WHITELIST = [
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
+    'https://revive-crime-crisis-management-front-end-oiwj.vercel.app/'
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True

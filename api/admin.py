@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
-from .models import ReviveUser,Complaint,StaffApplication,Department
+from .models import ReviveUser,Complaint,StaffApplication,Department,Notification
 # Register your models here.
 
 
@@ -17,6 +17,7 @@ admin.site.register(ReviveUser, ReviveUserAdmin)
 admin.site.register(Complaint)
 admin.site.register(StaffApplication)
 admin.site.register(Department)
+admin.site.register(Notification)
 
 
 

@@ -169,7 +169,10 @@ def crisis_adding(request):
         title= request.POST.get('title')
         donation_goal = request.POST.get('donation_goal')
         user_side = request.POST.get('user_side')
-        user = ReviveUser.objects.get(id=user_side)
+        try:
+            user = ReviveUser.objects.get(id=user_side)
+        except:
+            user = None
         print(user_side,'its from user side')
         if user:
 
