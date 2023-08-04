@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 class CrisisManageSerializer(serializers.ModelSerializer):
     class Meta:
         model = CrisisManage
-        fields = ['user', 'title', 'description', 'image', 'donation_goal', 'recived_amount', 'date_time', 'document', 'is_active']
+        fields = ['id','user', 'title', 'description', 'image', 'donation_goal', 'recived_amount', 'date_time', 'document', 'is_active']
 
     def create(self, validated_data):
         # Create a new crisis instance using the validated data
