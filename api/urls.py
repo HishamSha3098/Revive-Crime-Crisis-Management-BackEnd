@@ -30,6 +30,7 @@ urlpatterns = [
     path('complaint/<int:id>/', views.complaintUpdate, name='complaint-status-update'),
 
     path('register_complaint/', views.ComplaintRegisterView.as_view(), name='register_complaint'),
+    path("become-volunteer/<int:user_id>/", views.become_volunteer, name="become_volunteer"),
 
     path('create-checkout-session/' , views.CreateCheckoutSession.as_view()),  
     path('webhook-test/' , views.WebHook.as_view()), 

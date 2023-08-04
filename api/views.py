@@ -502,26 +502,15 @@ class WebHook(APIView):
     
 
 
-# @api_view(['GET','POST'])
-# def complaintUserView(request):
-    
-#     if request.method == 'GET':
-#         complaints = Complaint.objects.filter(id = id)
 
-#         complaint_data = []
-#         for data in complaints:
-        
-#             complaint_data.append({
-#                 'id':data.id,
-#                 'image': data.user.image.url,
-#                 'name': data.name,
-#                 'department': data.department.name,
-#                 'document': data.document.url,
-#                 'status': data.status,
+@api_view(["PATCH"])
+def become_volunteer(request, user_id):
+    try:
+        print("we are in try volunteer")
+        user = ReviveUser.objects.get(id=user_id)
+        user.is_volunteer = True
+        user.save()
+        return Response(status=status.HTTP_200_OK)
+    except ReviveUser.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
                 
-
-                
-                
-#             })
-
-#         return JsonResponse(complaint_data, safe=False)
