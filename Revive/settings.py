@@ -83,7 +83,7 @@ CORS_ORIGIN_WHITELIST = [
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
-    'https://revive-crime-crisis-management-front-end-oiwj.vercel.app/'
+    'https://revive-crime-crisis-management-front-end-oiwj.vercel.app'
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True

@@ -121,30 +121,40 @@ def user_block(request):
     return JsonResponse ({'message':'Action Failed'})
 
 
-
+@api_view(['GET','POST'])
 def crisisList_view(request):
 
-    datas = CrisisManage.objects.all()
-    
+    if request.method == 'GET':
 
-    crisis_data = []
-    for data in datas:
+        user_id = request.GET.get('user_id')
+
+        if user_id :
+                print("im in if-----crisisssss------")
+                datas = CrisisManage.objects.filter(user=user_id)
+                print(datas,'---------=============--------==========')
+        else :
+            return
         
-        crisis_data.append({
-            'id':data.id,
-            'img': data.image.url,
-            'title': data.title,
-            'description': data.description,
-            'donation_goal': data.donation_goal,
-            'recived_amount': data.recived_amount,
-            # 'recived_amount': data.recived_amount,
-            'is_active': data.is_active,
 
+        crisis_data = []
+        for data in datas:
             
-            
-        })
+            crisis_data.append({
+                'id':data.id,
+                'img': data.image.url,
+                'title': data.title,
+                'description': data.description,
+                'donation_goal': data.donation_goal,
+                'recived_amount': data.recived_amount,
+                # 'recived_amount': data.recived_amount,
+                'is_active': data.is_active,
 
-    return JsonResponse(crisis_data, safe=False)
+                
+                
+            })
+            print(crisis_data,'-------------thih---------we seeking------------')
+
+        return JsonResponse(crisis_data, safe=False)
 
 
 

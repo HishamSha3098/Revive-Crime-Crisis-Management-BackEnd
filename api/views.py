@@ -339,7 +339,20 @@ def staffApprovel(request,email):
 def complaintView(request):
     
     if request.method == 'GET':
-        complaints = Complaint.objects.all()
+        user_id = request.GET.get('user_id')
+        # user = request.data.get('user_id')
+
+        print(user_id,'------------------------Get-------------')
+        # print(user,'------------------------Data-------------')
+
+        if user_id :
+            print("im in if-----------")
+            complaints = Complaint.objects.filter(user=user_id)
+            print(complaints,'---------=============--------==========')
+            
+
+        else:
+            complaints = Complaint.objects.all()
 
         complaint_data = []
         for data in complaints:
@@ -488,3 +501,27 @@ class WebHook(APIView):
     return JsonResponse(success=True, safe=False)
     
 
+
+# @api_view(['GET','POST'])
+# def complaintUserView(request):
+    
+#     if request.method == 'GET':
+#         complaints = Complaint.objects.filter(id = id)
+
+#         complaint_data = []
+#         for data in complaints:
+        
+#             complaint_data.append({
+#                 'id':data.id,
+#                 'image': data.user.image.url,
+#                 'name': data.name,
+#                 'department': data.department.name,
+#                 'document': data.document.url,
+#                 'status': data.status,
+                
+
+                
+                
+#             })
+
+#         return JsonResponse(complaint_data, safe=False)

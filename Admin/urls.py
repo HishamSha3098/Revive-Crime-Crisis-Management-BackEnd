@@ -6,7 +6,7 @@ urlpatterns = [
    
     path('adminLogin/', views.AdminLogin.as_view(),name='admin'),
     path('user_list/', views.userList_view,name='user_list'),
-    path('crisis_list/', views.crisisList_view,name='crisis_list'),
+    path('crisis_list-user/', views.crisisList_view,name='crisis_list'),
     path('crisis_applications/', views.crisisApplication,name='crisis_applications'),
     path('crisis-approvel/<int:id>/', views.crisisApprovel,name='crisis-approvel'),
     path('user_manage/', views.user_block,name='user_manage'),

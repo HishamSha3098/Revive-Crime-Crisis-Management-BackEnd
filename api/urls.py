@@ -25,6 +25,7 @@ urlpatterns = [
     path('staff-application/', views.staffApplication, name='staff-application'),
     path('make-staff/<str:email>', views.staffApprovel, name='make-staff'),
     path('complaints/', views.complaintView, name='complaints'),
+    # path('complaints-User/', views.complaintUserView, name='complaintsUser'),
     # path('complaints/<int:id>/', views.complaintView, name='complaints'),
     path('complaint/<int:id>/', views.complaintUpdate, name='complaint-status-update'),
 
