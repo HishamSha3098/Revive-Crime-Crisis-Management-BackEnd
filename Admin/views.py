@@ -16,6 +16,8 @@ from rest_framework import generics
 from datetime import datetime
 from django.http import FileResponse
 
+from django.db.models import Count
+from django.db.models.functions import TruncDay
 
 from rest_framework import status
 from django.contrib.auth import authenticate, login
@@ -32,8 +34,8 @@ from django.shortcuts import get_object_or_404,redirect
 from django.core import serializers
 
 from django.http import JsonResponse
-from api.models import ReviveUser
-from .models import CrisisManage,EventManage,GalleryManage
+from api.models import ReviveUser,Complaint
+from .models import CrisisManage,EventManage,GalleryManage,Wallet
 from .serializers import CrisisManageSerializer,EventSerializer,GallerySerializer
 # Create your views here.
 
@@ -67,6 +69,7 @@ class AdminLogin(APIView):
                     "message":'Success',
                     "user_id": user.id,
                     "staff_status":user.is_staff,
+                    "admin_status":user.is_admin,
                     "access_token": access_token,
                     "refresh_token": refresh_token
                 })
@@ -422,4 +425,54 @@ def crisisApprovel(request,id):
         print("something failed")
         return JsonResponse({'message':'failed'}, safe=False)
 
+
+
+
+def active_crisis_and_complaint_count_by_days(request):
+    active_crisis_data = CrisisManage.objects.filter(is_active=True) \
+        .annotate(day=TruncDay('date_time')) \
+        .values('day') \
+        .annotate(crisis_count=Count('id')) \
+        .order_by('day')
+
+    active_complaint_data = Complaint.objects.filter(status='submitted') \
+        .annotate(day=TruncDay('created_at')) \
+        .values('day') \
+        .annotate(complaint_count=Count('id')) \
+        .order_by('day')
+
+    # Create a dictionary with the data for both crisis and complaint counts
+    data = {
+        'crisis_count': [item['crisis_count'] for item in active_crisis_data],
+        'complaint_count': [item['complaint_count'] for item in active_complaint_data],
+    }
+
+
     
+
+    return JsonResponse({'data': data})
+    
+
+
+
+
+def get_statistics_cards_data(request):
+   
+    wallet = Wallet.objects.first()
+    total_donation_amount = wallet.balance
+    total_users = ReviveUser.objects.all().count()
+    total_crisis = CrisisManage.objects.all().count()  
+    total_complaints = Complaint.objects.all().count()
+
+    data = {
+
+        'total_donation_amount':total_donation_amount,
+        'total_users':total_users,
+        'total_crisis' :total_crisis,
+        'total_complaints' :total_complaints
+    }
+
+    
+        
+
+    return JsonResponse(data, safe=False)

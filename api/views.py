@@ -414,19 +414,22 @@ class CreateCheckoutSession(APIView):
 
             print(amount,"------------im in price in saving---------------------------")
             # Update Crisis model with received amount
-
+            price = int(amount/100)
             crisis = CrisisManage.objects.get(id=crisis_id)
-            crisis.recived_amount += int(amount)
+            crisis.recived_amount += int(price)
             crisis.save()
         else:
             # Update Wallet model with received amount
+            price = int(amount/100)
             wallet = Wallet.objects.first()  # Assuming there's only one wallet instance
-            wallet.balance += int(amount)
+            wallet.balance += int(price)
             wallet.save()
 
     def post(self, request):
         
-        price = request.data.get('price')
+        price = int(request.data.get('price')) * 100
+
+        print(price,'------------this price-------after multiply----------------')
         crisis_id = request.data.get('crisis_id')
 
         try:

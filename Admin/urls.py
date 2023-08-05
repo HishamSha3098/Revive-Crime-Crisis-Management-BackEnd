@@ -16,9 +16,10 @@ urlpatterns = [
     path('delete_crisis/<int:id>/', views.CrisisDeleteView.as_view(),name='delete_crisis'),
     # path('update_crisis/<int:pk>/', views.CrisisUpdate.as_view(),name='update_crisis'),
     # path('add_crisis/', views.CrisisCreate.as_view(), name='create_crisis'),
-
+    path('dashboard-counts/', views.active_crisis_and_complaint_count_by_days, name='active_crisis_and_complaint_count_by_days'),
     path('event/', views.eventListCreateView.as_view(), name='event-list-create'),
     path('eventManage/<int:pk>/', views.EventUpdateView.as_view(), name='event-retrieve-update-destroy'),
+    path('get-statistics-cards-data/', views.get_statistics_cards_data, name='get_statistics_cards_data'),
 
     path('gallery/', views.galleryListCreateView.as_view(), name='gallery-list-create'),
     path('galleryManage/<int:pk>/', views.GalleryUpdateView.as_view(), name='gallery-retrieve-update-destroy'),
