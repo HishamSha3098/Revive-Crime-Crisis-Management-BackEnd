@@ -50,7 +50,7 @@ def SignupView(request):
 
 def send_verification_email(user):
     subject = 'Verify your email'
-    message = f'Hi {user.name},\n\nPlease click the following link to verify your email: http://127.0.0.1:8000/verify/{user.id}\n\nThanks!'
+    message = f'Hi {user.name},\n\nPlease click the following link to verify your email: https://revive-charity-foundation.onrender.com/verify/{user.id}\n\nThanks!'
     from_email = settings.DEFAULT_FROM_EMAIL
     to_email = user.email
     send_mail(subject, message, from_email, [to_email])
@@ -187,7 +187,7 @@ def forgetPassword(request,email):
     print(email,'-----------------------------')
     user = ReviveUser.objects.get(email=email)
     subject = 'Verify your email'
-    message = f'Hi {user.name},\n\nPlease click the following link to verify your email:http://localhost:5173/reset-pass/{user.id}\n\nThanks!'
+    message = f'Hi {user.name},\n\nPlease click the following link to verify your email:https://revive-crime-crisis-management-front-end.vercel.app/reset-pass/{user.id}\n\nThanks!'
     from_email = settings.DEFAULT_FROM_EMAIL
     to_email = user.email
     send_mail(subject, message, from_email, [to_email])
